@@ -10,8 +10,8 @@
 |---|---|
 | **Team Name** | Orion Squad |
 | **Track** | AI |
-| **Team Lead** | Tirth Gondaliya — tirth.gondaliya@ibm.com |
-| **Members** | Alex Mercer, Priya Sharma, David Kim |
+| **Team Lead** | Dax Gondaliya — ddgondaliya8826@gmail.com |
+| **Members** | Tirth Gondaliya , Keval Jogani, Hardik Thummar |
 
 ---
 
