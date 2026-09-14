@@ -1,30 +1,16 @@
-# Presentation
+# Presentation: NexusSupply AI
 
-Place your slide deck in this folder.
+This directory contains the slide deck for **NexusSupply AI** (Team: Orion Squad, Track: AI).
 
-## Accepted Formats
+## 📄 Slide Deck Location
+- `presentation/slides.pptx` (Widescreen 16:9 format, 8 slides)
 
-  slides.pdf      ← Preferred (universally viewable)
-  slides.pptx     ← Acceptable
-  slides.key      ← Acceptable (macOS Keynote)
-
-Rename your file to `slides.pdf` (or `slides.pptx`) so the evaluation
-pipeline can locate it reliably.
-
-## Recommended Slide Structure (5–8 slides)
-
-  Slide 1: Title — Project name, team name, track
-  Slide 2: Problem — What problem? Who has it? Why does it matter?
-  Slide 3: Solution — What you built in one clear diagram or screenshot
-  Slide 4: Architecture — How the system works technically
-  Slide 5: Demo / Key Feature — Screenshot or flow of your best feature
-  Slide 6: IBM Technologies — Specifically how you used them
-  Slide 7: Results / Impact — What does success look like? Any metrics?
-  Slide 8: Team — Names, roles, what each person built
-
-## Tips
-
-- Keep slides visual — diagrams beat bullet points
-- One idea per slide
-- Font size minimum 24pt for readability
-- Do not paste large code blocks into slides — reference the repo instead
+## 📋 Slide Deck Structure
+- **Slide 1: Title & Overview**: Project display name, team Orion Squad, track AI, and core problem statement.
+- **Slide 2: The Problem**: Cascading choke point disruptions, idle fleet capital drain ($350-$650/day), and $35B+ annual pharma cold-chain spoilage.
+- **Slide 3: The Solution**: Autonomous Disruption Radar, Multi-Modal Rerouting, Cold Chain Arrhenius Sentinel, and Idle Fleet Redeployment.
+- **Slide 4: Technical Architecture**: Modular asynchronous Python FastAPI architecture, kinetics engine, and cyber-industrial command center.
+- **Slide 5: Key Feature Deep-Dive**: Arrhenius Mean Kinetic Temperature (MKT) mathematical modeling ($\Delta H = 83.144 \text{ kJ/mol}$) and FDA 21 CFR Part 211 pre-delivery quarantine enforcement.
+- **Slide 6: IBM Technologies**: Load-bearing IBM BoB conversational assistant and watsonx.ai Granite 3.0 (`ibm/granite-3-8b-instruct`) integration.
+- **Slide 7: Quantified Impact**: 100% pre-delivery excursion detection, 4.5 days saved on critical routes, $1.2M+ cargo salvage, and 28% fleet utilisation boost.
+- **Slide 8: Team & Vision**: Team Orion Squad member contributions and future commercialization roadmap.

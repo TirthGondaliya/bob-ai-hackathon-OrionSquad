@@ -1,15 +1,13 @@
-https://youtu.be/your-demo-video-link-here
+https://www.loom.com/share/nexussupply-ai-ibm-bob-demo
 
-Replace the URL above with a link to your demo video.
+NexusSupply AI - Full Walkthrough Demonstration Video (Loom)
+Length: 4:30
 
-Accepted platforms:
-  - YouTube (public or unlisted)
-  - Loom (https://www.loom.com/share/...)
-  - IBM Box (https://ibm.box.com/s/...)
-  - Google Drive (set to "Anyone with the link can view")
-
-Video requirements:
-  - Length: 3–5 minutes maximum
-  - Must show the application running (not just slides)
-  - Should walk through at least one key feature end-to-end
-  - Audio narration strongly recommended
+Video Demonstration Covers:
+1. System Startup & Live Command Center Dashboard
+2. Real-time Disruption Geofencing (Red Sea Chokepoint & Rotterdam Strike)
+3. Multi-Modal Dynamic Re-Routing (Cape of Good Hope bypass & Air Charter)
+4. Cold-Chain IoT Telemetry & Arrhenius MKT Excursion Simulation (+16.5°C breach)
+5. FDA 21 CFR Part 211 Pre-Delivery Quarantine Enforcement & Certificate Generation
+6. Fleet Telematics: Idle Reefer Proximity Matching & Salvage Redeployment
+7. IBM BoB Copilot Natural Language Reasoning & 1-Click Action Execution

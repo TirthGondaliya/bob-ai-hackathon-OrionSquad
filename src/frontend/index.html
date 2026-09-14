@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusSupply AI — Supply Chain Disruption Assistant & Fleet Utilisation Optimizer with IBM BoB</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/styles.css">
+
+  <!-- Chart.js & Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-theme">
+
+  <!-- TOP APP HEADER -->
+  <header class="app-header">
+    <div class="brand-container">
+      <div class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">NexusSupply <span class="accent-text">AI</span></div>
+        <div class="brand-subtitle">Autonomous Supply Chain Disruption & Fleet Utilisation Optimizer</div>
+      </div>
+    </div>
+
+    <!-- Live Status Indicators -->
+    <div class="header-badges">
+      <div class="ibm-badge">
+        <span class="ibm-icon">IBM</span>
+        <span>Powered by BoB & watsonx.ai Granite 3.0</span>
+      </div>
+      <div class="status-indicator live">
+        <span class="pulse-dot"></span>
+        <span id="system-status-text">NETWORK LIVE</span>
+      </div>
+      <button class="btn-demo-sim" id="btn-toggle-copilot">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>IBM BoB Copilot</span>
+        <span class="unread-chip" id="bob-alert-count">2</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- EXECUTIVE KPI BANNER -->
+  <section class="kpi-banner">
+    <div class="kpi-card" id="kpi-disruptions">
+      <div class="kpi-icon icon-red">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <div class="kpi-data">
+        <span class="kpi-label">Active Disruptions</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpi-disruptions-val">3</span>
+          <span class="kpi-badge badge-warning">Global Alerts</span>
+        </div>
+        <span class="kpi-subtext" id="kpi-disruptions-sub">Red Sea, Rotterdam, Typhoon</span>
+      </div>
+    </div>
+
+    <div class="kpi-card" id="kpi-risk">
+      <div class="kpi-icon icon-amber">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="1" y="3" width="15" height="13"></rect>
+          <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+          <circle cx="5.5" cy="18.5" r="2.5"></circle>
+          <circle cx="18.5" cy="18.5" r="2.5"></circle>
+        </svg>
+      </div>
+      <div class="kpi-data">
+        <span class="kpi-label">Shipments at Risk</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpi-impacted-val">2</span>
+          <span class="kpi-badge badge-danger" id="kpi-risk-value">$1.85M at Risk</span>
+        </div>
+        <span class="kpi-subtext">Avg Delay: +7.0 Days</span>
+      </div>
+    </div>
+
+    <div class="kpi-card" id="kpi-fleet">
+      <div class="kpi-icon icon-cyan">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 20V10"></path>
+          <path d="M12 20V4"></path>
+          <path d="M6 20v-6"></path>
+        </svg>
+      </div>
+      <div class="kpi-data">
+        <span class="kpi-label">Fleet Asset Utilisation</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpi-fleet-util-val">83.3%</span>
+          <span class="kpi-badge badge-info" id="kpi-idle-assets-badge">4 Idle Units</span>
+        </div>
+        <span class="kpi-subtext">Idle Drain: $1,610 / day</span>
+      </div>
+    </div>
+
+    <div class="kpi-card" id="kpi-coldchain">
+      <div class="kpi-icon icon-emerald">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2v20"></path>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+      </div>
+      <div class="kpi-data">
+        <span class="kpi-label">Cold-Chain Sentinel</span>
+        <div class="kpi-value-row">
+          <span class="kpi-value text-danger" id="kpi-excursion-val">1 EXCURSION</span>
+          <span class="kpi-badge badge-danger">FDA/WHO Alert</span>
+        </div>
+        <span class="kpi-subtext">MKT: 14.8°C (Quarantine Hold)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="nav-tabs">
+    <button class="tab-btn active" data-tab="tab-map">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+      <span>Disruption Radar & Global Map</span>
+    </button>
+    <button class="tab-btn" data-tab="tab-coldchain">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+      <span>Cold Chain Sentinel (IoT Telemetry & MKT)</span>
+      <span class="tab-alert-badge" id="coldchain-tab-badge">!</span>
+    </button>
+    <button class="tab-btn" data-tab="tab-reroute">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg>
+      <span>Dynamic Re-Routing & Carrier Engine</span>
+    </button>
+    <button class="tab-btn" data-tab="tab-fleet">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+      <span>Fleet Asset Utilisation & Redeployment</span>
+    </button>
+  </nav>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <main class="main-content">
+
+    <!-- TAB 1: DISRUPTION RADAR & GLOBAL MAP -->
+    <section class="tab-pane active" id="tab-map">
+      <div class="map-layout">
+        <!-- Interactive Leaflet Map -->
+        <div class="map-card">
+          <div class="card-header">
+            <div>
+              <h3>Global Trade Lanes & Active Disruption Geofences</h3>
+              <p class="section-desc">Real-time geospatial tracking of marine choke points, port strikes, and weather anomalies.</p>
+            </div>
+            <div class="map-legend">
+              <span class="legend-item"><span class="legend-dot red-pulse"></span> Disruption Blast Zone</span>
+              <span class="legend-item"><span class="legend-line blue"></span> Active Sea Route</span>
+              <span class="legend-item"><span class="legend-line green"></span> Re-Routed Bypass</span>
+              <span class="legend-item"><span class="legend-dot yellow"></span> Cargo Vessel</span>
+            </div>
+          </div>
+          <div id="leaflet-map"></div>
+        </div>
+
+        <!-- Disruption Controls Sidebar -->
+        <div class="sidebar-card">
+          <div class="card-header">
+            <h3>Active Disruption Feeds</h3>
+            <span class="badge-tag">Geofence AI</span>
+          </div>
+          <p class="sidebar-help-text">Click switches to simulate disruption toggles and observe autonomous recalculations.</p>
+          
+          <div class="disruptions-list" id="disruptions-container">
+            <!-- Dynamically injected -->
+          </div>
+
+          <!-- Quick Simulation Scenarios -->
+          <div class="sim-actions-box">
+            <h4>Simulation Testbench</h4>
+            <div class="btn-group-column">
+              <button class="btn-secondary" id="btn-trigger-all-disruptions">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                Simulate Cascading Red Sea Outage
+              </button>
+              <button class="btn-secondary" id="btn-reset-sim">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                Reset Network Baseline
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: COLD CHAIN SENTINEL (IoT TELEMETRY & MKT) -->
+    <section class="tab-pane" id="tab-coldchain">
+      <div class="coldchain-layout">
+        <!-- Telemetry Graph & WHO Safe Zone -->
+        <div class="cc-chart-card">
+          <div class="card-header">
+            <div>
+              <div class="cc-title-row">
+                <h3>Continuous IoT Telemetry Stream: <span id="cc-cargo-title">mRNA-1273 Vaccines</span></h3>
+                <span class="regulatory-badge" id="cc-regulatory-badge">LEVEL 3 CRITICAL EXCURSION</span>
+              </div>
+              <p class="section-desc">Arrhenius Mean Kinetic Temperature (MKT) calculation & FDA 21 CFR Part 211 Compliance.</p>
+            </div>
+            <div class="cc-controls">
+              <button class="btn-warning-action" id="btn-inject-temp-spike">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                Simulate Compressor Failure (+16.5°C)
+              </button>
+              <button class="btn-primary" id="btn-download-cert">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Export FDA/WHO Audit Cert
+              </button>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="telemetryChart"></canvas>
+          </div>
+
+          <!-- Scientific Metric Badges -->
+          <div class="mkt-stats-ribbon">
+            <div class="mkt-stat-item">
+              <span class="stat-label">Calculated MKT</span>
+              <span class="stat-num text-danger" id="stat-mkt-val">14.8°C</span>
+              <span class="stat-desc">Threshold Max: 10.0°C</span>
+            </div>
+            <div class="mkt-stat-item">
+              <span class="stat-label">Cumulative Degree-Hours</span>
+              <span class="stat-num" id="stat-degree-hours">34.2 °C·h</span>
+              <span class="stat-desc">Area Under Curve</span>
+            </div>
+            <div class="mkt-stat-item">
+              <span class="stat-label">Stability Budget Consumed</span>
+              <span class="stat-num text-danger" id="stat-budget-val">100.0%</span>
+              <span class="stat-desc">Exhausted Prior to Delivery</span>
+            </div>
+            <div class="mkt-stat-item">
+              <span class="stat-label">Cargo Value Salvage Alert</span>
+              <span class="stat-num text-warning" id="stat-cargo-val">$625,000</span>
+              <span class="stat-desc">Insurance Protocol Ready</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Telemetry Details & Corrective Action Panel -->
+        <div class="cc-sidebar-card">
+          <div class="card-header">
+            <h3>Automated Regulatory Action</h3>
+            <span class="badge-tag">WHO PQS E006</span>
+          </div>
+
+          <div class="action-alert-box alert-danger" id="cc-action-box">
+            <div class="alert-icon">⚠️</div>
+            <div>
+              <h4 id="cc-action-header">PRE-DELIVERY QUARANTINE ORDER</h4>
+              <p id="cc-action-details">Temperature has breached upper critical threshold (14.8°C) for 6+ cumulative hours. Stability budget fully consumed. Delivery to patient clinics prohibited.</p>
+            </div>
+          </div>
+
+          <h4>Recommended Remediation Workflows</h4>
+          <div class="workflow-step-list">
+            <div class="workflow-step active">
+              <span class="step-num">1</span>
+              <div>
+                <strong>Emergency Intercept Reefer</strong>
+                <p>Dispatch nearest idle pharma-certified reefer to swap cargo at Antwerp depot.</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <span class="step-num">2</span>
+              <div>
+                <strong>Dry-Ice Cryogenic Recharge</strong>
+                <p>Inject 150kg solid CO2 pallet recharge to restore 2°C–8°C core temperature.</p>
+              </div>
+            </div>
+            <div class="workflow-step">
+              <span class="step-num">3</span>
+              <div>
+                <strong>Chain-of-Custody Telemetry Seal</strong>
+                <p>Lock tamper-evident cryptographic IoT sensor log for regulatory audit submission.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="live-sensor-gauges">
+            <div class="gauge-pill">
+              <span>Sensor Battery</span>
+              <strong id="gauge-battery">85.5%</strong>
+            </div>
+            <div class="gauge-pill">
+              <span>Door Tamper</span>
+              <strong class="text-danger" id="gauge-door">BREACH DETECTED</strong>
+            </div>
+            <div class="gauge-pill">
+              <span>Shock / Vibration</span>
+              <strong id="gauge-shock">1.4 G (OK)</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: DYNAMIC RE-ROUTING & CARRIER ENGINE -->
+    <section class="tab-pane" id="tab-reroute">
+      <div class="reroute-layout">
+        <!-- Shipment Selection Header -->
+        <div class="reroute-header-card">
+          <div>
+            <h3>Autonomous Carrier & Corridor Optimizer</h3>
+            <p class="section-desc">Evaluate multi-modal alternatives, cost vs. speed trade-offs, and carbon footprint deltas.</p>
+          </div>
+          <div class="shipment-selector-group">
+            <label for="reroute-shipment-select">Active Shipment:</label>
+            <select id="reroute-shipment-select" class="form-select">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Current Route vs Alternatives Matrix -->
+        <div class="route-comparison-grid" id="route-alternatives-container">
+          <!-- Dynamically populated cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: FLEET ASSET UTILISATION & REDEPLOYMENT -->
+    <section class="tab-pane" id="tab-fleet">
+      <div class="fleet-layout">
+        <div class="fleet-header-card">
+          <div>
+            <h3>Global Fleet Telematics & Idle Asset Redeployment</h3>
+            <p class="section-desc">Rebalance stranded reefer containers, dry vans, and trucks to alleviate chokepoints and salvage cargo.</p>
+          </div>
+          <div class="fleet-quick-stats">
+            <div class="pill-stat">Total Assets: <strong id="fleet-total-count">6</strong></div>
+            <div class="pill-stat">Idle Units: <strong class="text-warning" id="fleet-idle-count">4</strong></div>
+            <div class="pill-stat">Utilisation: <strong class="text-emerald" id="fleet-util-rate">83.3%</strong></div>
+          </div>
+        </div>
+
+        <!-- Fleet Grid -->
+        <div class="fleet-assets-grid" id="fleet-assets-container">
+          <!-- Dynamically populated asset cards -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FLOATING IBM BOB COPILOT DRAWER -->
+  <aside class="bob-drawer" id="bob-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <div class="bob-avatar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </div>
+        <div>
+          <h4>IBM BoB Copilot</h4>
+          <span class="model-tag" id="drawer-model-tag">watsonx.ai Granite 3.0</span>
+        </div>
+      </div>
+      <button class="drawer-close-btn" id="btn-close-drawer">&times;</button>
+    </div>
+
+    <!-- Suggested Quick Action Chips -->
+    <div class="chat-chips-row">
+      <button class="chip-btn" data-query="Which cold-chain shipments are in danger in the Red Sea?">🚨 Red Sea Vaccine Risk</button>
+      <button class="chip-btn" data-query="Find idle reefers within 1000km to salvage shipment SH-7091">🚛 Deploy Idle Reefers</button>
+      <button class="chip-btn" data-query="What is the MKT and regulatory excursion status of SH-7091?">❄️ MKT Severity Audit</button>
+      <button class="chip-btn" data-query="Summarize network disruptions and financial exposure">🌐 Network Briefing</button>
+    </div>
+
+    <!-- Message History -->
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-bubble assistant">
+        <div class="bubble-header">IBM BoB • Reasoning Engine</div>
+        <p>Greetings, Logistics Controller. I am actively monitoring active disruptions, cold-chain Arrhenius MKT degradation, and fleet idle telematics.</p>
+        <p>⚠️ <strong>Immediate Attention Required</strong>: Shipment <code>MSCU-BIO-992140</code> (mRNA Vaccines) has entered a critical thermal excursion near the Red Sea corridor. Would you like me to recommend a maritime bypass or dispatch an idle cryogenic reefer from Dubai?</p>
+      </div>
+    </div>
+
+    <!-- Chat Input Box -->
+    <form class="chat-input-bar" id="chat-form">
+      <input type="text" id="chat-input" placeholder="Ask BoB: 'Reroute shipment SH-7091' or 'Analyze port strike'..." autocomplete="off">
+      <button type="submit" class="btn-chat-send" id="btn-chat-send">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </form>
+  </aside>
+
+  <!-- TOAST NOTIFICATION POPUP -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- REGULATORY CERTIFICATE MODAL -->
+  <div class="modal-backdrop" id="cert-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Official FDA 21 CFR Part 211 / WHO PQS Excursion Audit Certificate</h3>
+        <button class="modal-close-btn" id="btn-close-modal">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-cert-content">
+        <!-- Injected JSON / Report -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btn-print-cert">Print / Save PDF</button>
+        <button class="btn-primary" id="btn-dismiss-modal">Acknowledge & Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Application Logic -->
+  <script src="/static/app.js"></script>
+</body>
+</html>

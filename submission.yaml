@@ -9,51 +9,47 @@
 # =============================================================================
 
 team:
-  name: ""                             # REQUIRED — e.g., "Orion Squad"
-  track: ""                            # REQUIRED — one of: AI | DevOps | Sustainability | Open
+  name: "Orion Squad"                             # REQUIRED — e.g., "Orion Squad"
+  track: "AI"                                    # REQUIRED — one of: AI | DevOps | Sustainability | Open
   lead:
-    name: ""                           # REQUIRED — e.g., "Alice Chen"
-    email: ""                          # REQUIRED — e.g., "alice.chen@ibm.com"
+    name: "Tirth Gondaliya"                      # REQUIRED — e.g., "Alice Chen"
+    email: "tirth.gondaliya@ibm.com"             # REQUIRED — e.g., "alice.chen@ibm.com"
   members:
-    - name: ""                         # REQUIRED — Team member 1
-      email: ""
-    - name: ""                         # Add more members by copying the two lines above
-      email: ""
-    - name: ""
-      email: ""
+    - name: "Alex Mercer"                         # REQUIRED — Team member 1
+      email: "alex.mercer@ibm.com"
+    - name: "Priya Sharma"                       # Add more members by copying the two lines above
+      email: "priya.sharma@ibm.com"
+    - name: "David Kim"
+      email: "david.kim@ibm.com"
 
 submission:
-  title: ""                            # REQUIRED — Project display name, e.g., "SmartOps Dashboard"
+  title: "NexusSupply AI — Supply Chain Disruption Assistant & Fleet Utilisation Optimizer"                            # REQUIRED — Project display name, e.g., "SmartOps Dashboard"
 
-  problem_statement: >                 # REQUIRED — 1-3 sentences. What problem? Who has it?
-    Replace this text with a concise description of the real-world problem
-    your project addresses and who experiences it.
+  problem_statement: >                           # REQUIRED — 1-3 sentences. What problem? Who has it?
+    Cascading disruptions across global trade choke points and port strikes delay hundreds of active shipments while fleet assets sit idle in regional depots. Temperature-sensitive cold-chain cargo (vaccines, biologics) suffers $35B+ annual excursion losses that are traditionally discovered only after delivery when cargo is already spoiled.
 
-  solution_summary: >                  # REQUIRED — 1-3 sentences. What did you build?
-    Replace this text with a clear description of your solution
-    and how it addresses the problem above.
+  solution_summary: >                            # REQUIRED — 1-3 sentences. What did you build?
+    NexusSupply AI is an autonomous supply chain assistant powered by IBM BoB and watsonx.ai Granite 3.0 that geofences active disruptions, generates multi-modal carrier re-routing trade-offs, redeploys idle fleet assets, and monitors cold-chain IoT streams with Arrhenius MKT to enforce pre-delivery regulatory quarantines.
 
-  key_features:                        # REQUIRED — List 3 to 5 specific features you implemented
-    - ""                               # e.g., "Real-time pipeline anomaly detection using watsonx.ai"
-    - ""
-    - ""
-    - ""                               # optional 4th
-    - ""                               # optional 5th
+  key_features:                                  # REQUIRED — List 3 to 5 specific features you implemented
+    - "Real-time geospatial disruption geofencing and ripple delay impact calculation across multi-modal trade lanes"
+    - "Multi-modal dynamic re-routing engine evaluating Cost, Transit Time, and Carbon Footprint (tCO2) trade-offs"
+    - "Scientific Cold-Chain IoT Sentinel implementing Arrhenius Mean Kinetic Temperature (MKT) and FDA 21 CFR / WHO PQS classification"
+    - "Fleet asset telematics optimizer matching idle reefers and trucks to distressed cargo to minimize demurrage"
+    - "Conversational IBM BoB Copilot powered by watsonx.ai Granite 3.0 with 1-click execution of re-routing and dispatch directives"
 
   tech_stack:
-    languages: []                      # REQUIRED — e.g., ["Python", "TypeScript"]
-    frameworks: []                     # e.g., ["FastAPI", "React"]
-    ibm_technologies: []               # e.g., ["watsonx.ai", "IBM Bob", "IBM Cloud Functions"]
-    databases: []                      # e.g., ["PostgreSQL", "Redis"]
-    other: []                          # e.g., ["Docker", "GitHub Actions", "Slack API"]
+    languages: ["Python", "JavaScript", "HTML5", "CSS3"]                      # REQUIRED — e.g., ["Python", "TypeScript"]
+    frameworks: ["FastAPI", "Uvicorn", "Chart.js", "Leaflet.js", "Pydantic"]  # e.g., ["FastAPI", "React"]
+    ibm_technologies: ["IBM BoB", "watsonx.ai", "IBM Granite 3.0"]          # e.g., ["watsonx.ai", "IBM Bob", "IBM Cloud Functions"]
+    databases: ["In-Memory State Store", "Pydantic Schemas"]                 # e.g., ["PostgreSQL", "Redis"]
+    other: ["GitHub Actions", "Docker", "Pytest", "Arrhenius Kinetics"]      # e.g., ["Docker", "GitHub Actions", "Slack API"]
 
-  what_we_are_most_proud_of: >         # Optional but recommended — guides judges to your best work
-    Replace with what aspect of the submission you consider strongest
-    and want judges to pay special attention to.
+  what_we_are_most_proud_of: >                   # Optional but recommended — guides judges to your best work
+    The implementation of the Arrhenius Mean Kinetic Temperature (MKT) kinetics engine combined with FDA 21 CFR Part 211 regulatory classification, enabling real-time detection of vaccine degradation and pre-delivery quarantine intervention before $500K+ lifesaving pharmaceuticals are spoiled, accompanied by 1-click emergency idle reefer redeployment.
 
-  known_limitations: >                 # Optional but recommended — be honest about gaps
-    Replace with any known limitations, incomplete features,
-    or shortcuts taken due to time constraints.
+  known_limitations: >                           # Optional but recommended — be honest about gaps
+    Currently calibrated for maritime container, air cargo, and refrigerated trucking modes; rail telematics currently use simulated sensor checkpoints. Integration with live AIS satellite vessel transponder APIs is mocked with real-world historic waypoints for demo speed and reliability.
 
 # =============================================================================
 # ARTIFACT LOCATIONS
