@@ -12,15 +12,12 @@ team:
   name: "Orion Squad"                             # REQUIRED — e.g., "Orion Squad"
   track: "AI"                                    # REQUIRED — one of: AI | DevOps | Sustainability | Open
   lead:
-    name: "Tirth Gondaliya"                      # REQUIRED — e.g., "Alice Chen"
-    email: "tirth.gondaliya@ibm.com"             # REQUIRED — e.g., "alice.chen@ibm.com"
+    name: "Dax Gondaliya"                        # REQUIRED — Team Lead
+    email: "ddgondaliya8826@gmail.com"           # REQUIRED — Team Lead Email
   members:
-    - name: "Alex Mercer"                         # REQUIRED — Team member 1
-      email: "alex.mercer@ibm.com"
-    - name: "Priya Sharma"                       # Add more members by copying the two lines above
-      email: "priya.sharma@ibm.com"
-    - name: "David Kim"
-      email: "david.kim@ibm.com"
+    - name: "Tirth Gondaliya"                    # REQUIRED — Team member 1
+    - name: "Keval Jogani"                       # Team member 2
+    - name: "Hardik Thummar"                     # Team member 3
 
 submission:
   title: "NexusSupply AI — Supply Chain Disruption Assistant & Fleet Utilisation Optimizer"                            # REQUIRED — Project display name, e.g., "SmartOps Dashboard"
@@ -59,7 +56,7 @@ artifacts:
   source_code: "src/"
   setup_guide: "docs/setup-guide.md"
   architecture_doc: "docs/architecture.md"
-  demo_video: "demo/demo-video-link.txt"   # URL to hosted video (YouTube, Loom, Box)
-  live_demo: "demo/live-demo-url.txt"      # URL to deployed demo (optional)
+  demo_video: "demo/demo-video-link.txt"   
+  live_demo: "demo/live-demo-url.txt"      
   screenshots: "demo/screenshots/"
   presentation: "presentation/"

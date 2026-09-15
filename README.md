@@ -79,8 +79,7 @@ NexusSupply AI is an enterprise autonomous supply chain decision engine built wi
 │   ├── live-demo-url.txt            # Live deployment or local run instructions
 │   └── README.md
 ├── presentation/
-│   ├── slides.pptx                  # 8-slide executive pitch deck
-│   └── README.md
+│   ├── slides.pptx                  # 10-slide executive pitch deck
 ├── tests/
 │   └── test_supply_chain.py         # Automated Pytest suite (100% pass rate)
 ├── requirements.txt                 # Python dependencies manifest
