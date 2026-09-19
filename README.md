@@ -23,7 +23,7 @@ Cascading disruptions across global trade choke points (Bab-el-Mandeb Strait, Su
 
 ## 💡 Solution
 
-NexusSupply AI is an enterprise autonomous supply chain decision engine built with IBM BoB and watsonx.ai Granite 3.0. It continuously geofences active disruptions against shipment trade lanes, computes multi-modal re-routing alternatives across cost, time, and carbon footprint, optimizes idle fleet redeployment, and analyzes continuous cold-chain IoT telemetry with Arrhenius Mean Kinetic Temperature (MKT) calculations to enforce pre-delivery regulatory quarantines before spoiled cargo reaches clinics.
+NexusSupply AI is an enterprise autonomous supply chain decision engine built with IBM BoB and watsonx.ai Granite 3.0. It continuously geofences active disruptions against shipment trade lanes, computes multi-modal re-routing alternatives across cost, time, and carbon footprint, optimizes idle fleet redeployment, and analyzes continuous cold-chain IoT telemetry with Arrhenius Mean Kinetic Temperature (MKT) calculations to enforce pre-delivery regulatory quarantines before spoiled cargo reaches clinics .
 
 ---
 
@@ -33,7 +33,7 @@ NexusSupply AI is an enterprise autonomous supply chain decision engine built wi
 - **🧭 Multi-Modal Dynamic Re-Routing & Carrier Optimizer:** Synthesizes alternative routing corridors (Cape of Good Hope maritime bypass, cryo-cargo air charters, intermodal rail) with multi-criteria trade-off scoring across cost delta ($), days saved, and carbon footprint ($\text{tCO}_2$).
 - **❄️ Cold-Chain Sentinel with Arrhenius MKT Kinetics:** Evaluates live IoT streams against FDA 21 CFR Part 211 and WHO PQS (E006) standards, computing Mean Kinetic Temperature ($\Delta H = 83.144 \text{ kJ/mol}$) and cumulative degree-hours to classify regulatory excursion severity and enforce pre-delivery quarantine holds.
 - **🚛 Fleet Telematics & Idle Asset Redeployment:** Monitors depot dwell times, identifies capital-draining idle assets (>24h idle time), and uses Haversine proximity matching to dispatch nearest idle reefers to distressed cargo.
-- **🤖 Load-Bearing IBM BoB Copilot with watsonx.ai Granite 3.0:** Provides enterprise conversational intelligence with 1-click execution of dispatch orders and corrective action plans directly inside the chat interface.
+- **🤖 Load-Bearing IBM BoB Copilot with watsonx.ai Granite 3.0:** Provides enterprise conversational intelligence with 1-click execution of dispatch orders and corrective action plans directly inside the chat interface .
 
 ---
 
@@ -112,7 +112,7 @@ The Command Center dashboard will be available at: **`http://localhost:8000`**
 Interactive API Swagger documentation is at: **`http://localhost:8000/docs`**
 
 ```bash
-# 5. Run automated tests
+# 5. Run automated tests.
 pytest tests/ -v
 ```
 
